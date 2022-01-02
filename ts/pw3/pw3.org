@@ -1,0 +1,11 @@
+* notes
+** create package.json
+ npm init --yes
+** install playwright
+ npm i -D @playwright/test
+** download browsers
+ npx playwright install
+** create test/example.spec.ts
+** run test
+npx playwright test --headed
+
