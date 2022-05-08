@@ -1,0 +1,64 @@
+* QUICK LINKS
+* meta
+** startups
+//		#+STARTUP: hidestars	                                                     169-280AD
+#+SEQ_TODO: TODO(t!) START(s!) STUCK(k!) WAIT(w!) | DONE(d!) CANCEL(c!) D                 !)
+#+PROPERTY: imp_ALL high medium low                                                       
+#+PROPERTY: urg_ALL immediate shortterm longterm
+#+PROPERTY: loc_ALL home office
+#+COLUMNS: %imp %urg %loc
+** intent
+One intent is to use decentralized note taking. In this case, much of the notes would not make sense without
+the source and repo, so might as well put the documentation here.
+Since this is Git-based, there is no need to link to this file, just have to clone the repo.
+
+The high level folders js and ts are intended to identify the languages ( javascript, typescript ). This makes
+the repo scalable to future languages like cs, python etc. 
+
+It may be useful to create a descriptive link to each of the folders, after things are known.
+* projects
+** pw1
+** pw2
+** pw3
+** pw4 vscode
+*** initial
+ mkdir pw4
+ cd pw4
+ vscode .
+ VS Code/Command Palette/Test: install playwright
+npx playwright test --browser=chromium // does not work bec chromium is a project
+**** npx playwright test --project=chromium
+
+ Running 25 tests using 1 worker
+
+ [1/25] [chromium] › example.spec.ts:14:3 › New Todo › should allow me to add todo items
+ [2/25] [chromium] › example.spec.ts:37:3 › New Todo › should clear text input field when an item is added
+ [3/25] [chromium] › example.spec.ts:47:3 › New Todo › should append new items to the bottom of the list
+ [4/25] [chromium] › example.spec.ts:61:3 › New Todo › should show #main and #footer when items added
+ [5/25] [chromium] › example.spec.ts:81:3 › Mark all as completed › should allow me to mark all items as completed
+ [6/25] [chromium] › example.spec.ts:90:3 › Mark all as completed › should allow me to clear the complete state of all items
+ [7/25] [chromium] › example.spec.ts:99:3 › Mark all as completed › complete all checkbox should update state when items are completed / cleared
+ [8/25] [chromium] › example.spec.ts:122:3 › Item › should allow me to mark items as complete
+ [9/25] [chromium] › example.spec.ts:144:3 › Item › should allow me to un-mark items as complete
+ [10/25] [chromium] › example.spec.ts:164:3 › Item › should allow me to edit an item
+ [11/25] [chromium] › example.spec.ts:190:3 › Editing › should hide other controls when editing
+ [12/25] [chromium] › example.spec.ts:198:3 › Editing › should save edits on blur
+ [13/25] [chromium] › example.spec.ts:212:3 › Editing › should trim entered text
+ [14/25] [chromium] › example.spec.ts:226:3 › Editing › should remove the item if an empty text string was entered
+ [15/25] [chromium] › example.spec.ts:238:3 › Editing › should cancel edits on escape
+ [16/25] [chromium] › example.spec.ts:247:3 › Counter › should display the current number of todo items
+ [17/25] [chromium] › example.spec.ts:265:3 › Clear completed button › should display the correct text
+ [18/25] [chromium] › example.spec.ts:270:3 › Clear completed button › should remove completed items when clicked
+ [19/25] [chromium] › example.spec.ts:278:3 › Clear completed button › should be hidden when there are no items that are completed
+ [20/25] [chromium] › example.spec.ts:286:3 › Persistence › should persist its data
+ [21/25] [chromium] › example.spec.ts:316:3 › Routing › should allow me to display active items
+ [22/25] [chromium] › example.spec.ts:324:3 › Routing › should respect the back button
+ [23/25] [chromium] › example.spec.ts:348:3 › Routing › should allow me to display completed items
+ [24/25] [chromium] › example.spec.ts:355:3 › Routing › should allow me to display all items
+ [25/25] [chromium] › example.spec.ts:364:3 › Routing › should highlight the currently applied filter
+   Slow test file: [chromium] › example.spec.ts (15s)
+   Consider splitting slow test files to speed up parallel execution
+
+   25 passed (16s)
+
+
