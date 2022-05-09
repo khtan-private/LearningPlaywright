@@ -11,7 +11,11 @@ import { devices } from '@playwright/test';
  * See https://playwright.dev/docs/test-configuration.
  */
 const config: PlaywrightTestConfig = {
-  testDir: './tests',
+  // testDir: 'c:\\projects\\github\\khtan-private\\LearningPlaywright\\ts\\pw4\\pw4tests\\tests',
+  // testDir: 'c:/projects/github/khtan-private/LearningPlaywright/ts/pw4/pw4tests/tests',
+  // testDir: 'c:/projects/github/khtan-private/LearningPlaywright/ts/pw4/tests1',
+  // testDir: 'c:\\projects\\github\\khtan-private\\LearningPlaywright\\ts\\pw4\\tests1',
+  // testDir: 'tests',
   /* Maximum time one test can run for. */
   timeout: 30 * 1000,
   expect: {
