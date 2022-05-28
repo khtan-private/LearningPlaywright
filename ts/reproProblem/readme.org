@@ -1,0 +1,124 @@
+* Q) Have problems running tests in folder outside playwright directory
+In the description of the cli, https://playwright.dev/docs/test-cli, I can specify a test directory independently
+with -c {dir} or --config {dir}: Directory with the tests to run without configuration file.
+
+In this reproProblem folder, I have the Playwright setup in "pw4" and the tests in "pw4tests/tests".
+There are local test directories 'pw4/test', 'pw4/test2', and one outside the repo folder '../pw4tests/tests'
+
+The tree command shows this in a better way : 
+
+c:\cprojects\github\khtan-private\LearningPlaywright\ts\reproProblem>tree /f .
+#+BEGIN_SRC shell
+Folder PATH listing
+Volume serial number is 00000001 22B2:40C1
+C:\CPROJECTS\GITHUB\KHTAN-PRIVATE\LEARNINGPLAYWRIGHT\TS\REPROPROBLEM
+│   readme.org
+│
+├───pw4
+│   │   package-lock.json
+│   │   package.json
+│   │   playwright.config.ts
+│   │
+│   ├───tests
+│   │       example.spec.ts
+│   │
+│   └───tests2
+│           example2.spec.ts
+│
+└───pw4tests
+    └───tests
+            example.spec.ts
+#+END_SRC
+In all cases, I use both --config {file} to point to the configuration file and --config {dir} to point to the
+test directory.
+** Transcripts 
+*** Unable to run outside folder ..\pw4tests folder ( using backslashed relative paths )
+#+BEGIN_SRC shell
+  c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4>npx playwright test --browser chromium --config playwright.config.ts --config ..\pw4tests
+
+  Running 0 test using 0 worker
+
+
+  Error: Cannot find module '@playwright/test'
+  Require stack:
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4tests\tests\example.spec.ts
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\loader.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\runner.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\playwright-core\lib\cli\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\playwright-core\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\cli.js
+
+      at Object.<anonymous> (c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4tests\tests\example.spec.ts:1:1)
+
+  =================
+   no tests found.
+  =================
+#+END_SRC
+*** Unable to run outside folder ../pw4tests folder ( using forward slashed relative paths )
+#+BEGIN_SRC shell
+  c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4>npx playwright test --browser chromium --config playwright.config.ts --config ../pw4tests
+
+  Running 0 test using 0 worker
+
+
+  Error: Cannot find module '@playwright/test'
+  Require stack:
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4tests\tests\example.spec.ts
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\loader.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\runner.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\playwright-core\lib\cli\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\playwright-core\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\cli.js
+
+      at Object.<anonymous> (c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4tests\tests\example.spec.ts:1:1)
+
+  =================
+   no tests found.
+  =================
+
+
+  c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4>npx playwright test --browser chromium --config playwright.config.ts --config ../pw4tests/tests
+
+  Running 0 test using 0 worker
+
+
+  Error: Cannot find module '@playwright/test'
+  Require stack:
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4tests\tests\example.spec.ts
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\loader.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\runner.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\lib\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\playwright-core\lib\cli\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\playwright-core\cli.js
+  - c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4\node_modules\@playwright\test\cli.js
+
+      at Object.<anonymous> (c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4tests\tests\example.spec.ts:1:1)
+
+  =================
+   no tests found.
+  =================
+#+END_SRC
+*** Able to run local 'test2' directory using --config {file} and --config {dir}
+#+BEGIN_SRC shell
+  c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4>npx playwright test --browser chromium --config playwright.config.ts --config tests2
+
+  Running 1 test using 1 worker
+
+    ✓  [chromium] › example2.spec.ts:14:3 › New2 › should clear text input field when an item is added (1s)
+
+
+    1 passed (2s)
+#+END_SRC
+*** Able to run local 'test' directory by default
+#+BEGIN_SRC shell
+  c:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4>npx playwright test --browser chromium --config playwright.config.ts
+
+  Running 1 test using 1 worker
+
+    ✓  [chromium] › example.spec.ts:14:3 › New1 › should allow me to add todo items (995ms)
+
+
+    1 passed (2s)
+#+END_SRC
