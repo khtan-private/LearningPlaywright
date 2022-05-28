@@ -60,5 +60,66 @@ npx playwright test --browser=chromium // does not work bec chromium is a projec
    Consider splitting slow test files to speed up parallel execution
 
    25 passed (16s)
+*** docker
+What is the path to the WSL filesystem? \\wsl$
+
+C:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4
+**** local playwright install
+     set TT=C:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4
+     docker run --volume %TT%:/tests -it --rm --ipc=host mcr.microsoft.com/playwright:v1.21.0-focal /bin/bash
+     npm ci
+     npx playwright install 
+     npx playwright test
+**** global playwright install
+     rm -rf node_modules package-lock.json
+     npm install -g @playwright/test
+     npm install -g 
+     export NODE_PATH=$(npm root -g)
+     npm playwright install
+     npx playwright test
+**** dockerfile in https://medium.com/automation-with-donald/run-playwright-with-docker-990ef5f34f1b
+# build environment
+
+FROM node:14 # this is not needed, playwright focal already has node
+FROM mcr.microsoft.com/playwright:focal
+WORKDIR /app # makes working directory
+ENV PATH /app/node_modules/.bin:$PATH # adds working dir to PATH
+COPY package*.json /app/
+COPY features/ /app/features/
+COPY src/ /app/src/
+COPY cucumber.js /app/
+COPY tsconfig.json /app/
+COPY reports/ /app/reports/
+# overkill
+RUN apt-get update && apt-get -y install libnss3 libatk-bridge2.0-0 libdrm-dev libxkbcommon-dev libgbm-dev libasound-dev libatspi2.0-0 libxshmfence-dev
+RUN npm install
+**** dockerfile
+FROM mcr.microsoft.com/playwright:focal
+RUN npm install -g @playwright/test # no need to install playwright, only playwright/test. why?
+# export NODE_PATH=$(npm root -g) cannot be done in Dockerfile
+# https://stackoverflow.com/questions/59076383/evaluate-bash-expression-in-dockerfile
+
+ENV NODE_PATH=/usr/local/lib/node_modules
+RUN npx playwright install
+
+
+**** notes
+Docker Cookbook 2.3 writing first dockerfile
+  CMD ["/binecho", "Hi Docker!"] # this will be the default run
+# but can be overridden from command line
+   docker run <imageid> /bin/date
+
+Docker Cookbook 2.9 publishing your image to dockerhub
+   docker login # user: how2dock
+   docker images
+   docker tag flask how2dock/flask
+   docker push how2dock/flask
+
+LearnDocker.Schenker
+   ch4 ENTRYPOINT ["ping"]
+       CMD ["-c", "3", "8.8.8.8"]
+   entrypoint overridden with --entrypoint
+       default entrypoint is /bin/sh -c
+   cmd overridden with last argument(?)
 
 
