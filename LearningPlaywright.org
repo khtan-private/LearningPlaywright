@@ -119,7 +119,15 @@ SECURITY WARNING: You are building a Docker image from Windows against a non-Win
 
 Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
 
-**** notes
+**** DONE -it /bin/bash works differently from ENTRYPOINT/CMD
+     CLOSED: [2022-05-30 Mon 12:17]
+     - State "DONE"       from              [2022-05-30 Mon 12:17]
+Preliminary tests with pw4:v1 shows that when 
+ENTRYPOINT=npx, CMD=playwright test, docker run (no -it) fails 
+
+Turns out CMD requires an array of string, so CMD ["playwright test"] should be CMD ["playwright", "test"]
+
+**** book notes
 Docker Cookbook 2.3 writing first dockerfile
   CMD ["/binecho", "Hi Docker!"] # this will be the default run
 # but can be overridden from command line
