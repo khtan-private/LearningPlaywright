@@ -99,9 +99,25 @@ RUN npm install -g @playwright/test # no need to install playwright, only playwr
 # export NODE_PATH=$(npm root -g) cannot be done in Dockerfile
 # https://stackoverflow.com/questions/59076383/evaluate-bash-expression-in-dockerfile
 
-ENV NODE_PATH=/usr/local/lib/node_modules
+ENV NODE_PATH=/usr/lib/node_modules
 RUN npx playwright install
+**** build
+docker build -t busybox .
+docker build -t cookbook:default .
 
+pw4> docker build -t pw4 .
+pw4> set TT=C:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4
+docker run --volume %TT%:/tests -it --rm --ipc=host pw4 /bin/bash
+
+set TT=C:\cprojects\github\khtan-private\LearningPlaywright\ts\pw4onlytests
+
+**** think: naming convention for my playwright images
+pw4 --> following the name of the folder? tankh1/pw4
+
+**** security warnings
+SECURITY WARNING: You are building a Docker image from Windows against a non-Windows Docker host. All files and directories added to build context will have '-rwxr-xr-x' permissions. It is recommended to double check and reset permissions for sensitive files and directories.
+
+Use 'docker scan' to run Snyk tests against images to find vulnerabilities and learn how to fix them
 
 **** notes
 Docker Cookbook 2.3 writing first dockerfile

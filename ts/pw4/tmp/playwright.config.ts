@@ -15,7 +15,7 @@ const config: PlaywrightTestConfig = {
   // testDir: 'c:/projects/github/khtan-private/LearningPlaywright/ts/pw4/pw4tests/tests',
   // testDir: 'c:/projects/github/khtan-private/LearningPlaywright/ts/pw4/tests1',
   // testDir: 'c:\\projects\\github\\khtan-private\\LearningPlaywright\\ts\\pw4\\tests1',
-  testDir: 'tests',
+  testDir: 'tests2',
   // testDir: '..\\pw4tests\\tests',
   // testDir: '../pw4tests/tests',
   /* Maximum time one test can run for. */
