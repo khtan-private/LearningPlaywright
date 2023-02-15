@@ -127,6 +127,12 @@ ENTRYPOINT=npx, CMD=playwright test, docker run (no -it) fails
 
 Turns out CMD requires an array of string, so CMD ["playwright test"] should be CMD ["playwright", "test"]
 
+**** docker push 
+docker tag x user/x
+docker push user/x 
+docker tag pw4:v2 tankh1/pw4:v2
+docker push tankh1/pw4:v2
+
 **** book notes
 Docker Cookbook 2.3 writing first dockerfile
   CMD ["/binecho", "Hi Docker!"] # this will be the default run
@@ -146,4 +152,57 @@ LearnDocker.Schenker
        default entrypoint is /bin/sh -c
    cmd overridden with last argument(?)
 
+** Single globally installed playwright image for running tests
+*** The case for installing Playwright globally on a Docker container so that it can be used as
+an execution environment has been made in X.
+Very specific usage : enable the use of a specific Playwright in a Linux container to assure
+version consistency, and machine runtime consistency.
+
+*** This is a demo project to show how it can be done
+
+*** Caveats
+1. Installing Playwright globally should not be done on a personal or group machine. This is because other Node applications
+have ???
+
+*** Development environment
+I developed this project on a Windows 10 machine, running Docker Desktop with containers set to Linux.
+
+*** Dockerfile
+*** Docker image 
+*** Run script : run.bat
+
+*** analogy
+Baking tests into the Docker image is like make a special function with specific arguments just to call/use
+the real generic function. For example, given a function Add3Numbers(n1, n2, n3), baking tests is equivalent 
+to creatign Add3NumbersA => Add3Numbers(1,2,3), Add3NumbersB => Add3Numbers(7,7,7) etc. Seems to be quite a
+throwback.
+
+The real argument is the difference between baking source code that goes into a build which is excellent
+because it means the sources of the builds are captured. While if tests are backed into the container, and the
+tests fail, the typical solution is to try to fix the tests in the container etc
+
+*** Notes
+1. For simplicity I have decided not to add a package.json just to make it nice to use "npm test" or "npm run test".
+If you prefer that arrangement, a package.json can be added in the tests folder.
+
+*** Still learning
+As you can see from the Dockerfile, there are incidental questions that I have marked with 'Q)'.
+If you do know of a solution, I would appreciate a ping and I can credit you with the solution.
+
+*** References
+An initial case for installing Playwright globally was made <here>.
+At the same time, the question for running Playwright globally was made <here>.
+*** Announce in slack and Playwright reports
+Using Playwright Docker without baking in the tests
+
+From my inquires on this channel and helpful comments from many, I have been able to work out a working version of a Playwright Docker container
+without baking in the tests into the image. This allows the image to be used on any folders of tests on the host, relying on
+the container for Playwright and its Ubuntu execution environment.
+
+This working proof of concept is available https://github.com/khtan/UsingGlobalPlaywrightContainer.
+
+Comments and feedback welcome.
+
+
+https://playwright.slack.com/archives/CSUHZPVLM/p1654011647606099
 
